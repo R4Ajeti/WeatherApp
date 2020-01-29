@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Toggle from './Toggle';
 import './Weather.css';
 
 let APPID = '682251abec592051d124246aeedafbd4';

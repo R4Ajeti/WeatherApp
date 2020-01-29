@@ -1,6 +1,9 @@
+import toggleFunc from './StaticFunctions';
+
 let APPID = '682251abec592051d124246aeedafbd4';
 let units = 'inperials';
 let searchMethod = '';
+
 const getSearchMethod = searchTerms => {
   let params = '';
   let regex = '^[0-9]+.?[0-9]*,[0-9]+.?[0-9]*$';
@@ -66,6 +69,9 @@ function init(resultFromServer) {
   let cityHeader = document.getElementById('cityHeader');
   let weatherIcon = document.getElementById('documentIconImg');
 
+  console.log('dsadasda');
+  console.log(this.state.city.windSpeed);
+  console.log('dsadasda');
   weatherIcon.src =
     'https://openweathermap.org/img/w/' +
     resultFromServer.weather[0].icon +
@@ -74,11 +80,26 @@ function init(resultFromServer) {
   //weatherDescriptionHeader.innerText =
   //resultFromServer.charAt(0).toUpperCase() + resultDescription.slice(1);
   temperatureElement.innerHTML =
-    Math.floor(resultFromServer.main.temp) + '&#176';
+    Math.floor(resultFromServer.main.temp - 273.15) + '&#176; C';
+  let weatherMain = document.getElementById('weatherMain');
+  let btnWeather = document.createElement('input');
+  btnWeather.style = 'background-color: blue;';
+  btnWeather.value = 'TOGGLE';
+  btnWeather.type = 'button';
+  btnWeather.id = 'toggleButton';
+  btnWeather.onclick = function() {
+    console.log('got clicked');
+    return toggleFunc();
+  };
+  //btnWeather.onClick = '{this.onClickToggle}';
+
+  weatherMain.insertBefore(btnWeather, weatherMain.firstChild);
+
   windSpeedElement.innerHTML =
     'Winds at ' + Math.floor(resultFromServer.wind.speed) + ' m/s ';
   cityHeader.innerHTML = resultFromServer.name;
   humidityElement.innerHTML =
     'Humidity levels at ' + resultFromServer.main.humidity + '%';
 }
+
 export default searchWeather;

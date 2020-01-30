@@ -17,8 +17,8 @@ class Weather extends Component {
         temp: null,
         humidity: null,
         windSpeed: null,
-        weatherIcon: '',
-      },
+        weatherIcon: ''
+      }
     };
     this.onClickSearchControl = this.onClickSearchControl.bind(this);
     this.onClickToggle = this.onClickToggle.bind(this);
@@ -50,24 +50,28 @@ class Weather extends Component {
     this.setState({
       lastTemp: temp,
       tempType: !tempType,
-      city: cityState,
+      city: cityState
     });
   };
 
   celciusToFarenheit = (...args) => {
-    if (args[1] === undefined || !args[1] === null) { return ((args[0] - 32) * 5) / 9; }
+    if (args[1] === undefined || !args[1] === null) {
+      return ((args[0] - 32) * 5) / 9;
+    }
     return args[0] * (9 / 5) + 32;
   };
 
   getSearchMethod = searchTerms => {
     let params = '';
-    const getTag = tags => (tags.indexOf(',') !== -1 ? tags.substring(0, tags.indexOf(',')) : -1);
+    const getTag = tags =>
+      tags.indexOf(',') !== -1 ? tags.substring(0, tags.indexOf(',')) : -1;
     const tagsArr = [];
     if (searchTerms.indexOf(',') === -1) {
-      params = searchTerms.length === 5
-        && `${Number.parseInt(searchTerms, 10)}` === searchTerms
-        ? `zip=${searchTerms}`
-        : `q=${searchTerms}`;
+      params =
+        searchTerms.length === 5 &&
+        `${Number.parseInt(searchTerms, 10)}` === searchTerms
+          ? `zip=${searchTerms}`
+          : `q=${searchTerms}`;
     } else {
       while (true) {
         let flag = false;
@@ -79,7 +83,7 @@ class Weather extends Component {
         } else {
           searchTerms.substring(
             tagsArr[tagsArr.length - 1].length + 1,
-            searchTerms.length,
+            searchTerms.length
           );
         }
       }
@@ -91,15 +95,10 @@ class Weather extends Component {
   };
 
   searchWeather = searchTerms => {
-    console.log(
-      `http://api.openweathermap.org/data/2.5/weather?${this.getSearchMethod(
-        searchTerms,
-      )}&APPID=${APPID}&units=${units}`,
-    );
     fetch(
       `http://api.openweathermap.org/data/2.5/weather?${this.getSearchMethod(
-        searchTerms,
-      )}&APPID=${APPID}&units=${units}`,
+        searchTerms
+      )}&APPID=${APPID}&units=${units}`
     )
       .then(result => result.json())
       .then(result => {
@@ -113,20 +112,18 @@ class Weather extends Component {
       temp: null,
       humidity: null,
       windSpeed: null,
-      weatherIcon: null,
+      weatherIcon: null
     };
     cityState.name = resultFromServer.name;
     cityState.temp = Math.floor(resultFromServer.main.temp - 273.15);
     cityState.humidity = Math.floor(resultFromServer.main.humidity);
     cityState.windSpeed = Math.floor(resultFromServer.wind.speed);
 
-    const weatherIconSrc = `https://openweathermap.org/img/w/${
-      resultFromServer.weather[0].icon
-    }.png`;
+    const weatherIconSrc = `https://openweathermap.org/img/w/${resultFromServer.weather[0].icon}.png`;
     cityState.weatherIcon = weatherIconSrc || null;
     this.setState({
       city: cityState,
-      toggle: true,
+      toggle: true
     });
   };
 
@@ -142,13 +139,10 @@ class Weather extends Component {
 
   handleChangeSearchInput = e => {
     this.setState({ searchInput: e.target.value });
-    console.log('handle change called');
   };
 
   render() {
-    const {
-      searchInput, city, toggle, tempType,
-    } = this.state;
+    const { searchInput, city, toggle, tempType } = this.state;
     return (
       <div className="Weather" style={{ color: 'white' }}>
         <div id="searchContainer">
@@ -171,9 +165,7 @@ class Weather extends Component {
         </div>
         <div id="weatherContainer">
           <div id="weatherDescription">
-            <h1 id="cityHeader">
-              {city.name != null ? city.name : ''}
-            </h1>
+            <h1 id="cityHeader">{city.name != null ? city.name : ''}</h1>
             <div id="weatherMain">
               <input
                 type="button"
@@ -192,20 +184,14 @@ class Weather extends Component {
               <div>
                 <img
                   id="documentIconImg"
-                  src={
-                    city.weatherIcon == null
-                      ? null
-                      : city.weatherIcon
-                  }
+                  src={city.weatherIcon == null ? null : city.weatherIcon}
                   alt="weatherIcon"
                 />
               </div>
             </div>
             <hr />
             <div id="windSpeed" className="bottomDetails">
-              {city.windSpeed != null
-                ? `Winds at ${city.windSpeed} m/s`
-                : ''}
+              {city.windSpeed != null ? `Winds at ${city.windSpeed} m/s` : ''}
             </div>
             <div id="humidity" className="bottomDetails">
               {city.humidity != null

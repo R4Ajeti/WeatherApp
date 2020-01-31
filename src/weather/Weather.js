@@ -17,8 +17,8 @@ class Weather extends Component {
         temp: null,
         humidity: null,
         windSpeed: null,
-        weatherIcon: ''
-      }
+        weatherIcon: '',
+      },
     };
     this.onClickSearchControl = this.onClickSearchControl.bind(this);
     this.onClickToggle = this.onClickToggle.bind(this);
@@ -50,7 +50,7 @@ class Weather extends Component {
     this.setState({
       lastTemp: temp,
       tempType: !tempType,
-      city: cityState
+      city: cityState,
     });
   };
 
@@ -63,13 +63,11 @@ class Weather extends Component {
 
   getSearchMethod = searchTerms => {
     let params = '';
-    const getTag = tags =>
-      tags.indexOf(',') !== -1 ? tags.substring(0, tags.indexOf(',')) : -1;
+    const getTag = tags => (tags.indexOf(',') !== -1 ? tags.substring(0, tags.indexOf(',')) : -1);
     const tagsArr = [];
     if (searchTerms.indexOf(',') === -1) {
-      params =
-        searchTerms.length === 5 &&
-        `${Number.parseInt(searchTerms, 10)}` === searchTerms
+      params = searchTerms.length === 5
+        && `${Number.parseInt(searchTerms, 10)}` === searchTerms
           ? `zip=${searchTerms}`
           : `q=${searchTerms}`;
     } else {
@@ -82,7 +80,7 @@ class Weather extends Component {
         } else {
           searchTerms.substring(
             tagsArr[tagsArr.length - 1].length + 1,
-            searchTerms.length
+            searchTerms.length,
           );
         }
       }
@@ -96,8 +94,8 @@ class Weather extends Component {
   searchWeather = searchTerms => {
     fetch(
       `http://api.openweathermap.org/data/2.5/weather?${this.getSearchMethod(
-        searchTerms
-      )}&APPID=${APPID}&units=${units}`
+        searchTerms,
+      )}&APPID=${APPID}&units=${units}`,
     )
       .then(result => result.json())
       .then(result => {
@@ -111,7 +109,7 @@ class Weather extends Component {
       temp: null,
       humidity: null,
       windSpeed: null,
-      weatherIcon: null
+      weatherIcon: null,
     };
     cityState.name = resultFromServer.name;
     cityState.temp = Math.floor(resultFromServer.main.temp - 273.15);
@@ -123,7 +121,7 @@ class Weather extends Component {
     this.setState({
       city: cityState,
       lastTemp: null,
-      toggle: true
+      toggle: true,
     });
   };
 
@@ -142,7 +140,9 @@ class Weather extends Component {
   };
 
   render() {
-    const { searchInput, city, toggle, tempType } = this.state;
+    const {
+ searchInput, city, toggle, tempType,
+} = this.state;
     return (
       <div className="Weather" style={{ color: 'white' }}>
         <div id="searchContainer">

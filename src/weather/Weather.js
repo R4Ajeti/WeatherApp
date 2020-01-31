@@ -73,13 +73,12 @@ class Weather extends Component {
           ? `zip=${searchTerms}`
           : `q=${searchTerms}`;
     } else {
-      while (true) {
-        let flag = false;
+      let flag = false;
+      while (flag) {
         if (getTag(searchTerms) === -1) flag = true;
         else tagsArr[tagsArr.length] = getTag(searchTerms);
         if (flag) {
           tagsArr[tagsArr.length] = searchTerms;
-          break;
         } else {
           searchTerms.substring(
             tagsArr[tagsArr.length - 1].length + 1,
@@ -123,6 +122,7 @@ class Weather extends Component {
     cityState.weatherIcon = weatherIconSrc || null;
     this.setState({
       city: cityState,
+      lastTemp: null,
       toggle: true
     });
   };
@@ -165,7 +165,7 @@ class Weather extends Component {
         </div>
         <div id="weatherContainer">
           <div id="weatherDescription">
-            <h1 id="cityHeader">{city.name != null ? city.name : ''}</h1>
+            <h1 id="cityHeader">{city.name !== null ? city.name : ''}</h1>
             <div id="weatherMain">
               <input
                 type="button"
@@ -184,17 +184,19 @@ class Weather extends Component {
               <div>
                 <img
                   id="documentIconImg"
-                  src={city.weatherIcon == null ? null : city.weatherIcon}
+                  src={city.weatherIcon === null ? null : city.weatherIcon}
                   alt="weatherIcon"
                 />
               </div>
             </div>
             <hr />
             <div id="windSpeed" className="bottomDetails">
-              {city.windSpeed != null ? `Winds at ${city.windSpeed} m/s` : ''}
+              {city.windSpeed !== null
+                ? `Winds at ${city.windSpeed} m/s %`
+                : ''}
             </div>
             <div id="humidity" className="bottomDetails">
-              {city.humidity != null
+              {city.humidity !== null
                 ? `Humidity levels at ${city.humidity} %`
                 : ''}
             </div>

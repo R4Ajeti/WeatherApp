@@ -103,7 +103,7 @@ class WeatherBuilder extends React.Component {
         searchInput: searchTerms,
         city: cityState,
         tempType: true,
-        lastTemp: lastTemp,
+        lastTemp,
         toggle: true,
         alert: {
           ...alert,
@@ -143,9 +143,8 @@ class WeatherBuilder extends React.Component {
     if (args[0]) {
       if (args.length > 1) {
         return ((args[0] - 32) * 5) / 9;
-      } else {
-        return args[0] * (9 / 5) + 32;
       }
+        return args[0] * (9 / 5) + 32;
     }
     return null;
   };
@@ -191,7 +190,7 @@ class WeatherBuilder extends React.Component {
           <Form getWeather={this.getWeather} />
           <AlertMessage
             style={{ display: alert ? 'inline' : 'none' }}
-            alert={true}
+            alert
             alertType={alert.alertType}
             alertMessage={alert.alertMessage}
           />

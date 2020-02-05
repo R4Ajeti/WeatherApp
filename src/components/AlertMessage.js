@@ -21,7 +21,8 @@ class AlertMessage extends React.Component {
       ]
     };
   }
-  componentWillReceiveProps(nextProps) {
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // You don't have to do this check first, but it can help prevent an unneeded render
     const { alertMessage, alertType, alert } = nextProps;
     const { alertON } = this.state;
@@ -29,10 +30,11 @@ class AlertMessage extends React.Component {
       this.setState({
         alertON: alert,
         alertMessage,
-        alertType
+        alertType,
       });
     }
   }
+
   render() {
     const {
       alertON,

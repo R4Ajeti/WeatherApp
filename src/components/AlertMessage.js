@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 class AlertMessage extends React.Component {
   constructor(props) {
@@ -62,10 +61,5 @@ class AlertMessage extends React.Component {
     );
   }
 }
-
-AlertMessage.propTypes = {
-  alertMessage: PropTypes.string,
-  alertType: PropTypes.number,
-};
 
 export default AlertMessage;

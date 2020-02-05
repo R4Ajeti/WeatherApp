@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class AlertMessage extends React.Component {
   constructor(props) {
@@ -17,18 +18,19 @@ class AlertMessage extends React.Component {
         'light',
         'dark',
         'primary',
-        'secondary'
-      ]
+        'secondary',
+      ],
     };
   }
 
+  // eslint-disable-next-line camelcase
   UNSAFE_componentWillReceiveProps(nextProps) {
     // You don't have to do this check first, but it can help prevent an unneeded render
-    const { alertMessage, alertType, alert } = nextProps;
+    const { alertMessage, alertType } = nextProps;
     const { alertON } = this.state;
-    if (alert !== alertON) {
+    if (alertON !== null) {
       this.setState({
-        alertON: alert,
+        alertON: true,
         alertMessage,
         alertType,
       });
@@ -36,13 +38,7 @@ class AlertMessage extends React.Component {
   }
 
   render() {
-    const {
-      alertON,
-      style,
-      alertMessage,
-      alertType,
-      alertTypeKeys
-    } = this.state;
+    const { alertON, alertMessage, alertType, alertTypeKeys } = this.state;
     const toggleAlert = e => {
       e.preventDefault();
       this.setState({ alertON: !alertON });
@@ -51,17 +47,25 @@ class AlertMessage extends React.Component {
     return (
       <div
         style={{
-          display: alertON ? 'inline' : 'none'
+          display: alertON ? 'inline' : 'none',
         }}
         className={`alert alert-${alertTypeKey}`}
       >
+        &nbsp;
         <button type="button" onClick={toggleAlert}>
           &times;
         </button>
-        <strong>{alertTypeKey}</strong> {alertMessage}
+        <strong>{alertTypeKey}</strong>
+        &nbsp;
+        {alertMessage}
       </div>
     );
   }
 }
+
+AlertMessage.propTypes = {
+  alertMessage: PropTypes.string,
+  alertType: PropTypes.number,
+};
 
 export default AlertMessage;

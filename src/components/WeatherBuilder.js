@@ -21,7 +21,7 @@ class WeatherBuilder extends React.Component {
         temp: null,
         humidity: null,
         windSpeed: null,
-        weatherIcon: null
+        weatherIcon: null,
       },
       alert: {
         alertType: null,
@@ -33,9 +33,9 @@ class WeatherBuilder extends React.Component {
           'light',
           'dark',
           'primary',
-          'secondary'
+          'secondary',
         ],
-        alertMessage: null
+        alertMessage: null,
       },
       nullState: {
         searchInput: null,
@@ -48,7 +48,7 @@ class WeatherBuilder extends React.Component {
           temp: null,
           humidity: null,
           windSpeed: null,
-          weatherIcon: null
+          weatherIcon: null,
         },
         alert: {
           alertType: null,
@@ -60,15 +60,13 @@ class WeatherBuilder extends React.Component {
             'light',
             'dark',
             'primary',
-            'secondary'
+            'secondary',
           ],
-          alertMessage: null
-        }
+          alertMessage: null,
+        },
       },
-      cachedState: null
+      cachedState: null,
     };
-    this.celciusToFarenheit = this.celciusToFarenheit.bind(this);
-    this.toggleFunc = this.toggleFunc.bind(this);
   }
 
   getWeather = async e => {
@@ -80,7 +78,7 @@ class WeatherBuilder extends React.Component {
     const api_call = await fetch(URL);
     const resultFromServer = await api_call.json();
 
-    const { alert } = this.state;
+    const { alert, nullState } = this.state;
 
     if (searchTerms) {
       const cityState = {
@@ -88,7 +86,7 @@ class WeatherBuilder extends React.Component {
         temp: null,
         humidity: null,
         windSpeed: null,
-        weatherIcon: null
+        weatherIcon: null,
       };
       cityState.name = resultFromServer.name;
       cityState.temp = Math.floor(resultFromServer.main.temp - 273.15);
@@ -108,16 +106,17 @@ class WeatherBuilder extends React.Component {
         alert: {
           ...alert,
           alertType: 0,
-          alertMessage: 'Weather data gathered :)'
-        }
+          alertMessage: 'Weather data gathered :)',
+        },
       });
     } else {
       this.setState({
+        ...nullState,
         alert: {
           ...alert,
           alertType: 2,
-          alertMessage: 'Please enter query to search with !!!'
-        }
+          alertMessage: 'Please enter query to search with !!!',
+        },
       });
     }
   };
@@ -133,18 +132,18 @@ class WeatherBuilder extends React.Component {
       cityState.temp = Math.floor(parseFloat(temp));
       this.setState({
         tempType: !tempType,
-        city: cityState
+        city: cityState,
       });
     }
   };
 
   celciusToFarenheit = (...args) => {
-    args[0] = parseInt(args[0], 10);
-    if (args[0]) {
+    const args0 = parseInt(args[0], 10);
+    if (args0) {
       if (args.length > 1) {
-        return ((args[0] - 32) * 5) / 9;
+        return ((args0 - 32) * 5) / 9;
       }
-        return args[0] * (9 / 5) + 32;
+      return args0 * (9 / 5) + 32;
     }
     return null;
   };
@@ -185,12 +184,11 @@ class WeatherBuilder extends React.Component {
     const { city, toggle, tempType, tempTypeKey, alert } = this.state;
 
     return (
-      <div className="Weather" style={{ color: 'white' }}>
+      <div className="Weather">
         <div id="weatherContainer">
           <Form getWeather={this.getWeather} />
           <AlertMessage
             style={{ display: alert ? 'inline' : 'none' }}
-            alert
             alertType={alert.alertType}
             alertMessage={alert.alertMessage}
           />

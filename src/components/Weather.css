@@ -1,0 +1,10 @@
+.Weather {
+  background-image: url('../img/weather-bg.png');
+  background-size: cover;
+  line-height: 1.1em;
+  overflow-x: hidden;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  height: 800px;
+}

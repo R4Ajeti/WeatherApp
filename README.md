@@ -8,7 +8,8 @@ Satisfy any craving with delivery from popular neighborhood restaurants and chai
 
 ## Built With
 
-- Please check 'DEVELOPMENT' branch
+- HTML/CSS/JS
+- React JS
 
 ## Live Demo
 
@@ -16,11 +17,37 @@ Satisfy any craving with delivery from popular neighborhood restaurants and chai
 
 ## Getting Started
 
-**Please check 'DEVELOPMENT' branch**
+**This is an example of how you may give instructions on setting up your project locally.**
 
 To get a local copy up and running follow these simple example steps.
 
-**Please check 'DEVELOPMENT' branch**
+### Prerequisites
+
+- Node js installed
+
+### Setup - Clone repo localy
+
+## V1 - First way to do (if git is installed)
+
+- Get repository link step: Click on green button and copy link format https://github.com/$username/$repoName.git
+- Open CMD step: press Windows+R and type 'cmd' then hit enter
+- Move to right directory step: type 'cd path-to-dir' then hit enter
+- Install repository step: type 'git clone https://github.com/$username/$repoName.git' then hit enter
+- Done :)
+
+## V2 -Second way
+
+- Download repository files step: Click on green button then click download
+- Move project files step: Cut (Ctrl + x), copy (Ctrl + c) rar file to right directory
+- Done :)
+
+### Install
+
+- Open CMD and type 'npm install'
+
+### Run server
+
+- Open CMD and type 'npm start'
 
 ## Authors
 
